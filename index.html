@@ -95,7 +95,8 @@
     var currentYear = d.getFullYear();
 
     var monthEventsTemplate = Handlebars.compile($('#monthEvents-template').html());
-    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + currentMonth + " and T = " + currentYear + " order by I ASC";  
+    //var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + currentMonth + " and T = " + currentYear + " order by I ASC";  
+    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V order by I ASC";  
 
     // Desktop View
     $('#monthEvents-table').sheetrock({
