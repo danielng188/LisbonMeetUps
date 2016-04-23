@@ -8,6 +8,8 @@
     <script src="js/sheetrock.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/handlebars.min.js"></script>
+    <script src="js/handlebars-helpers.js"></script>
+    
     
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -72,7 +74,14 @@
             -->
             <script id="monthEvents-template" type="text/x-handlebars-template">
               <tr class="header-row">
-                <td>{{cells.Language}}</td>
+                <td>
+                  {{#if_eq this "some message"}}
+                    Status
+                {{else}}
+                    {{this}}
+                {{/if_eq}}
+                  <!--{{cells.Language}}-->
+                </td>
                 <td>{{cells.Weekday}}</td>
                 <td>{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
                 <td>{{#if cells.Free}}<i class="fa fa-euro" style="font-size:24px"></i>{{/if}}</td>
