@@ -22,5 +22,19 @@ thead tr.header-row {
 .inline-row {
     white-space: nowrap;
 }
-/*
 
+.col-size {
+	width: 130px;
+}
+
+.project-name {
+	text-align: center;
+}
+
+.project-tagline {
+	text-align: center;
+}
+
+.site-footer {
+	text-align: center;
+}

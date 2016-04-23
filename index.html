@@ -42,7 +42,6 @@
       <section class="page-header">
       <h1 class="project-name">Lisbon Meetups</h1>
       <h2 class="project-tagline">A website project that lists events in Lisbon</h2>
-      <a href="https://github.com/danielng188/LisbonMeetUps" class="btn btn-primary">View on GitHub</a>
     </section>
 
     <section class="main-content">
@@ -53,26 +52,48 @@
         </script>
       </div>
     -->
-    <h2>April</h2>
+      <h2>April</h2>
         <div class="table-responsive">
-          <table id="monthEvents-table" class="table table-condensed table-striped">
-            <!--
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Address (Click to go to Google Map)</th>
-                <th>Category</th>
-                <th>Language</th>
-                <th>Organizer</th>
-                <th>Price</th>
-                <th>Go to Source</th>
-              </tr>
-            </thead>
-            -->
+          <table id="monthEvents-table" class="table table-condensed table-striped table-hover">
             <script id="monthEvents-template" type="text/x-handlebars-template">
+              <tr class="header-row">
+                <td>
+                  {{#compare cells.Language "en"}}
+                    EN
+                    {{/compare}}
+                  {{#compare cells.Language "pt"}}
+                    PT
+                    {{/compare}}
+                  {{#compare cells.Language "polygot"}}
+                    <i class="fa fa-globe"style="font-size:24px"></i>
+                    {{/compare}}
+                </td>
+                <td class="inline-row"><b>{{cells.Weekday}}</b></td>
+                <td class="inline-row">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
+                <td class="inline-row">
+                  {{#compare cells.Free "no"}}
+                  {{else}}
+                    <strong class="btn btn-primary btn-xs">FREE</strong>
+                  {{/compare}}
+                </td>
+                <td class="col-size"><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
+                <td class="col-size"><a href="#" target="_blank" title="Go to Organizer's website">{{cells.Organizer}}</td>
+                <td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
+                <td class="short-description">{{cells.ShortDescription}}</td>
+                <td class="inline-row">
+                  <a href="#" target="_blank" title="Go to Facebook page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
+                </td>
+              </tr>
+            </script>
+          </table>
+        </div>
+
+      <h2>May</h2>
+        <div class="table-responsive">
+          <table id="mayEvents-table" class="table table-condensed table-striped table-hover">
+            <script id="mayEvents-template" type="text/x-handlebars-template">
               <tr class="header-row">
                 <td>
                   {{#compare cells.Language "en"}}
@@ -86,7 +107,7 @@
                     {{/compare}}
                   <!--{{cells.Language}}-->
                 </td>
-                <td class="inline-row">{{cells.Weekday}}</td>
+                <td class="inline-row"><b>{{cells.Weekday}}</b></td>
                 <td class="inline-row">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
                 <td class="inline-row">
                   {{#compare cells.Free "no"}}
@@ -97,8 +118,8 @@
                     <strong class="btn btn-primary btn-xs">FREE</strong>
                   {{/compare}}
                 </td>
-                <td><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
-                <td><a href="#" target="_blank" title="Go to Organizer's website">{{cells.Organizer}}</td>
+                <td class="col-size"><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
+                <td class="col-size"><a href="#" target="_blank" title="Go to Organizer's website">{{cells.Organizer}}</td>
                 <td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
                 <td class="short-description">{{cells.ShortDescription}}</td>
                 <td class="inline-row">
@@ -110,7 +131,6 @@
             </script>
           </table>
         </div>
-
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/danielng188/LisbonMeetUps">Lisbonmeetups</a> is designed by <a href="https://github.com/danielng188">danielng188</a>.</span>
@@ -127,12 +147,12 @@
     //var currentDate = d.getDate();
     var currentMonth = d.getMonth() + 1;
     var currentYear = d.getFullYear();
-
+    
     var monthEventsTemplate = Handlebars.compile($('#monthEvents-template').html());
-    //var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + currentMonth + " and T = " + currentYear + " order by I ASC";  
-    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V order by I ASC";  
+    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + currentMonth + " and T = " + currentYear + "  and I > V order by I ASC";  
+    //var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where I > V order by I ASC";  
 
-    // Selects event in month
+    // Selects event in current month
     $('#monthEvents-table').sheetrock({
       url: mySpreadsheet,
       query: monthEventsQuery,
@@ -141,7 +161,18 @@
       //labels: ['Date', 'Start_Time', 'End_Time', 'City', 'Host', 'Map_Link', 'Tickets'],
       //headersOff: true
     });
+    
+    // Selects event in may
+    var mayEventsTemplate = Handlebars.compile($('#mayEvents-template').html());
+    var mayEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = 5 order by I ASC";  
+    
+    $('#mayEvents-table').sheetrock({
+      url: mySpreadsheet,
+      query: mayEventsQuery,
+      rowTemplate: mayEventsTemplate,
+    });
 
+    /*
     var monthHeadlineTemplate = Handlebars.compile($('#monthHeadline-template').html());
     var monthHeadlineQuery = "select I";
 
@@ -154,6 +185,7 @@
       //labels: ['Date', 'Start_Time', 'End_Time', 'City', 'Host', 'Map_Link', 'Tickets'],
       //headersOff: true
     });
+    */
 
   </script>
 
