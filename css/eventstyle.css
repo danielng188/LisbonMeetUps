@@ -19,7 +19,13 @@ thead tr.header-row {
     text-overflow: ellipsis;
 }
 
-td a .inline-icon {
-    display: inline-block;
+.inline-icon {
+    white-space: nowrap;
 }
+/*
 
+td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+*/
