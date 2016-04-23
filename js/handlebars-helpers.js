@@ -1,33 +1,39 @@
-Handlebars.registerHelper('if_equals', function(conditional, value, options) {
-  if (conditional === value){
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
-});
+Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 
-Handlebars.registerHelper('array_item', function(array, index, options) {
-  return options.fn(array[index]);
-});
+    var operators, result;
+    
+    if (arguments.length < 3) {
+        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+    }
+    
+    if (options === undefined) {
+        options = rvalue;
+        rvalue = operator;
+        operator = "===";
+    }
+    
+    operators = {
+        '==': function (l, r) { return l == r; },
+        '===': function (l, r) { return l === r; },
+        '!=': function (l, r) { return l != r; },
+        '!==': function (l, r) { return l !== r; },
+        '<': function (l, r) { return l < r; },
+        '>': function (l, r) { return l > r; },
+        '<=': function (l, r) { return l <= r; },
+        '>=': function (l, r) { return l >= r; },
+        'typeof': function (l, r) { return typeof l == r; }
+    };
+    
+    if (!operators[operator]) {
+        throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+    }
+    
+    result = operators[operator](lvalue, rvalue);
+    
+    if (result) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
 
-/**
- * @param ary {Array}
- * @param max {Number} The max number of items to display from the array
- * @param [options.skip] {Number=0} Optional. Number of items to skip in the array
- */
-Handlebars.registerHelper('each_upto', function(ary, max, options) {
-  if(!ary || ary.length == 0)
-      return options.inverse(this);
-
-  var result = [],
-    skip = (options.hash ? (options.hash.skip ? options.hash.skip : 0) : 0),
-    i = skip;
-
-  max += skip;
-
-  for(; i < max && i < ary.length; ++i) {
-    result.push(options.fn(ary[i], { data : { itemIndex : i } } ));
-  }
-      
-  return result.join('');
 });
