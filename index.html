@@ -82,8 +82,8 @@
                 <td class="short-description">{{cells.ShortDescription}}</td>
                 <td class="inline-row">
                   <a href="#" target="_blank" title="Go to Facebook page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-instagram" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-youtube" style="font-size:24px"></i></a>
                 </td>
               </tr>
             </script>
@@ -92,8 +92,8 @@
 
       <h2>May</h2>
         <div class="table-responsive">
-          <table id="mayEvents-table" class="table table-condensed table-striped table-hover">
-            <script id="mayEvents-template" type="text/x-handlebars-template">
+          <table id="nextEvents-table" class="table table-condensed table-striped table-hover">
+            <script id="nextEvents-template" type="text/x-handlebars-template">
               <tr class="header-row">
                 <td>
                   {{#compare cells.Language "en"}}
@@ -124,8 +124,50 @@
                 <td class="short-description">{{cells.ShortDescription}}</td>
                 <td class="inline-row">
                   <a href="#" target="_blank" title="Go to Facebook page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-instagram" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-youtube" style="font-size:24px"></i></a>
+                </td>
+              </tr>
+            </script>
+          </table>
+        </div>
+
+        <h2>June</h2>
+        <div class="table-responsive">
+          <table id="nnextEvents-table" class="table table-condensed table-striped table-hover">
+            <script id="nnextEvents-template" type="text/x-handlebars-template">
+              <tr class="header-row">
+                <td>
+                  {{#compare cells.Language "en"}}
+                    EN
+                    {{/compare}}
+                  {{#compare cells.Language "pt"}}
+                    PT
+                    {{/compare}}
+                  {{#compare cells.Language "polygot"}}
+                    <i class="fa fa-globe"style="font-size:24px"></i>
+                    {{/compare}}
+                  <!--{{cells.Language}}-->
+                </td>
+                <td class="inline-row"><b>{{cells.Weekday}}</b></td>
+                <td class="inline-row">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
+                <td class="inline-row">
+                  {{#compare cells.Free "no"}}
+                    <!--
+                    <i class="fa fa-euro" style="font-size:24px"></i><i class="fa fa-euro" style="font-size:24px"></i>
+                    -->
+                  {{else}}
+                    <strong class="btn btn-primary btn-xs">FREE</strong>
+                  {{/compare}}
+                </td>
+                <td class="col-size"><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
+                <td class="col-size"><a href="#" target="_blank" title="Go to Organizer's website">{{cells.Organizer}}</td>
+                <td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
+                <td class="short-description">{{cells.ShortDescription}}</td>
+                <td class="inline-row">
+                  <a href="#" target="_blank" title="Go to Facebook page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-instagram" style="font-size:24px"></i></a>
+                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-youtube" style="font-size:24px"></i></a>
                 </td>
               </tr>
             </script>
@@ -149,7 +191,7 @@
     var currentYear = d.getFullYear();
     
     var monthEventsTemplate = Handlebars.compile($('#monthEvents-template').html());
-    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + currentMonth + " and T = " + currentYear + "  and I > V order by I ASC";  
+    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + currentMonth + " and T = " + currentYear + "  and I >= V order by I ASC";  
     //var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where I > V order by I ASC";  
 
     // Selects event in current month
@@ -162,14 +204,24 @@
       //headersOff: true
     });
     
-    // Selects event in may
-    var mayEventsTemplate = Handlebars.compile($('#mayEvents-template').html());
-    var mayEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = 5 order by I ASC";  
+    // Selects event in next month
+    var nextEventsTemplate = Handlebars.compile($('#nextEvents-template').html());
+    var nextEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + (currentMonth+1) + " and T = " + currentYear + "  and I >= V order by I ASC";   
     
-    $('#mayEvents-table').sheetrock({
+    $('#nextEvents-table').sheetrock({
       url: mySpreadsheet,
-      query: mayEventsQuery,
-      rowTemplate: mayEventsTemplate,
+      query: nextEventsQuery,
+      rowTemplate: nextEventsTemplate,
+    });
+
+    // Selects event in next month
+    var nnextEventsTemplate = Handlebars.compile($('#nnextEvents-template').html());
+    var nnextEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + (currentMonth+2) + " and T = " + currentYear + "  and I >= V order by I ASC";   
+    
+    $('#nnextEvents-table').sheetrock({
+      url: mySpreadsheet,
+      query: nnextEventsQuery,
+      rowTemplate: nnextEventsTemplate,
     });
 
     /*
