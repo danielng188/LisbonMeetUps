@@ -38,3 +38,15 @@ thead tr.header-row {
 .site-footer {
 	text-align: center;
 }
+
+/*
+.fa-eventbrite:before {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: relative;
+  display: inline;
+  width: 100%;
+  content: url(../img/meetup-icon.png);
+}
+*/
