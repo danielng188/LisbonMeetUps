@@ -1,16 +1,43 @@
-img.displayed  {
-	width: 150px;
-  }
-
-/*
-table th {
-    background-color: #4CAF50;
-    color: white;
+.page-header {
+  text-align: center;
 }
-*/
+
+.site-footer {
+  text-align: center;
+}
 
 thead tr.header-row {
 	display: none;
+}
+.language, .weekday, .time, .price, .map, .source {
+  white-space: nowrap;
+}
+
+.weekday {
+  width: 60px;
+}
+
+.time {
+  width: 87px;
+}
+.price {
+  width: 54px;
+}
+
+.eventname {
+  width: 130px;
+}
+
+.image {
+  width:150px;
+}
+
+.organizer {
+  width: 143px;
+}
+
+.language {
+  width: 30px;
 }
 
 .short-description {
@@ -19,30 +46,19 @@ thead tr.header-row {
     text-overflow: ellipsis;
 }
 
-.inline-row {
-    white-space: nowrap;
+.fa-globe {
+  color: #337ab7;
+  content: url(../img/world-20px.png);
 }
 
-.col-size {
-	width: 130px;
+.fa-myfacebook:before {
+  content: url(../img/facebook-20px.png);
 }
 
-.page-header {
-  text-align: center;
+.fa-meetup:before {
+  content: url(../img/meetup-20px.png);
 }
 
-.site-footer {
-	text-align: center;
-}
-
-/*
 .fa-eventbrite:before {
-  background-size: contain;
-  background-position: 50%;
-  background-repeat: no-repeat;
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  content: url(../img/meetup-icon-24px.png);
+  content: url(../img/eventbrite-20px.png);
 }
-*/
