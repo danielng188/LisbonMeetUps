@@ -27,12 +27,8 @@ thead tr.header-row {
 	width: 130px;
 }
 
-.project-name {
-	text-align: center;
-}
-
-.project-tagline {
-	text-align: center;
+.page-header {
+  text-align: center;
 }
 
 .site-footer {
