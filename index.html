@@ -161,7 +161,7 @@
                   {{/compare}}
                 </td>
                 <td class="col-size"><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
-                <td class="col-size"><a href="#" target="_blank" title="Go to Organizer's website">{{cells.Organizer}}</td>
+                <td class="col-size">{{cells.Organizer}}</td>
                 <td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
                 <td class="short-description">{{cells.ShortDescription}}</td>
                 <td class="inline-row">
@@ -202,6 +202,7 @@
       //labels: ['Date', 'Start_Time', 'End_Time', 'City', 'Host', 'Map_Link', 'Tickets'],
       //headersOff: true
     });
+
     
     // Selects event in next month
     var nextEventsTemplate = Handlebars.compile($('#nextEvents-template').html());
@@ -212,7 +213,7 @@
       query: nextEventsQuery,
       rowTemplate: nextEventsTemplate,
     });
-
+    /*
     // Selects event in next next month
     var nnextEventsTemplate = Handlebars.compile($('#nnextEvents-template').html());
     var nnextEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + (currentMonth+2) + " and T = " + currentYear + "  and I >= V order by I ASC";   
@@ -222,7 +223,7 @@
       query: nnextEventsQuery,
       rowTemplate: nnextEventsTemplate,
     });
-
+    */
     /*
     var monthHeadlineTemplate = Handlebars.compile($('#monthHeadline-template').html());
     var monthHeadlineQuery = "select I";
