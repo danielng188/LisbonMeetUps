@@ -10,7 +10,6 @@
     <script src="js/handlebars.min.js"></script>
     <script src="js/handlebars-helpers.js"></script>
     
-    
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -52,38 +51,51 @@
         </script>
       </div>
     -->
+
       <h2>April</h2>
         <div class="table-responsive">
           <table id="monthEvents-table" class="table table-condensed table-striped table-hover">
             <script id="monthEvents-template" type="text/x-handlebars-template">
               <tr class="header-row">
-                <td>
+                <td class="language">
                   {{#compare cells.Language "en"}}
-                    EN
+                    <i class="flag-icon flag-icon-gb"></i>
                     {{/compare}}
                   {{#compare cells.Language "pt"}}
-                    PT
+                    <i class="flag-icon flag-icon-pt"></i>
                     {{/compare}}
                   {{#compare cells.Language "polygot"}}
-                    <i class="fa fa-globe"style="font-size:24px"></i>
+                    <!--<i class="flag-icon flag-icon-world"></i>-->
+                    <i class="fa fa-globe" style="font-size:24px"></i>
                     {{/compare}}
+                  <!--{{cells.Language}}-->
                 </td>
-                <td class="inline-row"><b>{{cells.Weekday}}</b></td>
-                <td class="inline-row">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
-                <td class="inline-row">
+                <td class="weekday"><b>{{cells.Weekday}}</b></td>
+                <td class="time">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
+                <td class="price">
                   {{#compare cells.Free "no"}}
+                    <!--
+                    <i class="fa fa-euro" style="font-size:24px"></i><i class="fa fa-euro" style="font-size:24px"></i>
+                    -->
                   {{else}}
                     <strong class="btn btn-primary btn-xs">FREE</strong>
                   {{/compare}}
                 </td>
-                <td class="col-size"><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
-                <td class="col-size">{{cells.Organizer}}</td>
-                <td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
-                <td class="short-description">{{cells.ShortDescription}}</td>
-                <td class="inline-row">
-                  <a href="#" target="_blank" title="Go to Facebook page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-instagram" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-twitter" style="font-size:24px"></i></a>
+                <td class="image"><img src="{{cells.FeaturedImageUrl}}" class="img-responsive"></td>
+                <td class="eventname"><b>{{cells.Name}}</b></td>
+                <td class="organizer">{{cells.Organizer}}</td>
+                <td class="map"><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
+                <td class="description">{{cells.ShortDescription}}</td>
+                <td class="source">
+                  {{#if cells.Facebook}}
+                  <a href="{{cells.Facebook}}" target="_blank" title="Go to Facebook page" class="fa fa-myfacebook" style="font-size:24px"></a>
+                  {{/if}}
+                  {{#if cells.Eventbrite}}
+                    <a href="{{cells.Eventbrite}}" target="_blank" title="Go to Eventbrite page" class="fa fa-eventbrite" style="font-size:24px"></a>
+                  {{/if}}
+                  {{#if cells.Meetup}}
+                    <a href="{{cells.Meetup}}" target="_blank" title="Go to Meetup page" class="fa fa-meetup" style="font-size:24px"></a>
+                  {{/if}}
                 </td>
               </tr>
             </script>
@@ -95,21 +107,22 @@
           <table id="nextEvents-table" class="table table-condensed table-striped table-hover">
             <script id="nextEvents-template" type="text/x-handlebars-template">
               <tr class="header-row">
-                <td>
+                <td class="language">
                   {{#compare cells.Language "en"}}
-                    EN
+                    <i class="flag-icon flag-icon-gb"></i>
                     {{/compare}}
                   {{#compare cells.Language "pt"}}
-                    PT
+                    <i class="flag-icon flag-icon-pt"></i>
                     {{/compare}}
                   {{#compare cells.Language "polygot"}}
-                    <i class="fa fa-globe"style="font-size:24px"></i>
+                    <!--<i class="flag-icon flag-icon-world"></i>-->
+                    <i class="fa fa-globe" style="font-size:24px"></i>
                     {{/compare}}
                   <!--{{cells.Language}}-->
                 </td>
-                <td class="inline-row"><b>{{cells.Weekday}}</b></td>
-                <td class="inline-row">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
-                <td class="inline-row">
+                <td class="weekday"><b>{{cells.Weekday}}</b></td>
+                <td class="time">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
+                <td class="price">
                   {{#compare cells.Free "no"}}
                     <!--
                     <i class="fa fa-euro" style="font-size:24px"></i><i class="fa fa-euro" style="font-size:24px"></i>
@@ -118,70 +131,97 @@
                     <strong class="btn btn-primary btn-xs">FREE</strong>
                   {{/compare}}
                 </td>
-                <td class="col-size"><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
-                <td class="col-size">{{cells.Organizer}}</td>
-                <td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
-                <td class="short-description">{{cells.ShortDescription}}</td>
-                <td class="inline-row">
-                  <a href="#" target="_blank" title="Go to Facebook page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-instagram" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-twitter" style="font-size:24px"></i></a>
+                <td class="image"><img src="{{cells.FeaturedImageUrl}}" class="img-responsive"></td>
+                <td class="eventname"><b>{{cells.Name}}</b></td>
+                <td class="organizer">{{cells.Organizer}}</td>
+                <td class="map"><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
+                <td class="description">{{cells.ShortDescription}}</td>
+                <td class="source">
+                  {{#if cells.Facebook}}
+                    <a href="{{cells.Facebook}}" target="_blank" title="Go to Facebook page" class="fa fa-myfacebook" style="font-size:24px"></a>
+                  {{/if}}
+                  {{#if cells.Eventbrite}}
+                    <a href="{{cells.Eventbrite}}" target="_blank" title="Go to Eventbrite page" class="fa fa-eventbrite" style="font-size:24px"></a>
+                  {{/if}}
+                  {{#if cells.Meetup}}
+                    <a href="{{cells.Meetup}}" target="_blank" title="Go to Meetup page" class="fa fa-meetup" style="font-size:24px"></a>
+                  {{/if}}
                 </td>
               </tr>
             </script>
           </table>
         </div>
 
-        <h2>June</h2>
+        <!-- <h2>June</h2>
         <div class="table-responsive">
           <table id="nnextEvents-table" class="table table-condensed table-striped table-hover">
             <script id="nnextEvents-template" type="text/x-handlebars-template">
               <tr class="header-row">
-                <td>
+                <td class="language">
                   {{#compare cells.Language "en"}}
-                    EN
+                    <i class="flag-icon flag-icon-gb"></i>
                     {{/compare}}
                   {{#compare cells.Language "pt"}}
-                    PT
+                    <i class="flag-icon flag-icon-pt"></i>
                     {{/compare}}
                   {{#compare cells.Language "polygot"}}
-                    <i class="fa fa-globe"style="font-size:24px"></i>
+                    <!--<i class="flag-icon flag-icon-world"></i>--><!--
+                    <i class="fa fa-globe" style="font-size:24px"></i>
                     {{/compare}}
-                  <!--{{cells.Language}}-->
+                  <!--{{cells.Language}}--><!--
                 </td>
-                <td class="inline-row"><b>{{cells.Weekday}}</b></td>
-                <td class="inline-row">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
-                <td class="inline-row">
+                <td class="weekday"><b>{{cells.Weekday}}</b></td>
+                <td class="time">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
+                <td class="price">
                   {{#compare cells.Free "no"}}
                     <!--
                     <i class="fa fa-euro" style="font-size:24px"></i><i class="fa fa-euro" style="font-size:24px"></i>
-                    -->
+                    --><!--
                   {{else}}
                     <strong class="btn btn-primary btn-xs">FREE</strong>
                   {{/compare}}
                 </td>
-                <td class="col-size"><a href="{{cells.LearnMoreLink}}" target="_blank" title="Go to Event"><b>{{cells.Name}}</b></a></td>
-                <td class="col-size">{{cells.Organizer}}</td>
-                <td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
-                <td class="short-description">{{cells.ShortDescription}}</td>
-                <td class="inline-row">
-                  <a href="#" target="_blank" title="Go to Facebook page"><i class="fa fa-facebook-official" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Meetup page"><i class="fa fa-instagram" style="font-size:24px"></i></a>
-                  <a href="#" target="_blank" title="Go to Eventbrite"><i class="fa fa-twitter" style="font-size:24px"></i></a>
+                <td class="image"><img src="{{cells.FeaturedImageUrl}}" class="img-responsive thumbnail"></td>
+                <td class="eventname"><b>{{cells.Name}}</b></td>
+                <td class="organizer">{{cells.Organizer}}</td>
+                <td class="map"><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q={{cells.Address}}" target="_blank" title="{{cells.Address}}"><i class="fa fa-map-marker" style="font-size:24px"></i></a></td>
+                <td class="description">{{cells.ShortDescription}}</td>
+                <td class="source">
+                  {{#if cells.Facebook}}
+                    <a href="{{cells.Facebook}}" target="_blank" title="Go to Facebook page" class="fa fa-myfacebook" style="font-size:24px"></a>
+                  {{/if}}
+                  {{#if cells.Eventbrite}}
+                    <a href="{{cells.Eventbrite}}" target="_blank" title="Go to Eventbrite page" class="fa fa-eventbrite" style="font-size:24px"></a>
+                  {{/if}}
+                  {{#if cells.Meetup}}
+                    <a href="{{cells.Meetup}}" target="_blank" title="Go to Meetup page" class="fa fa-meetup" style="font-size:24px"></a>
+                  {{/if}}
                 </td>
               </tr>
             </script>
           </table>
-        </div>
+        </div> -->
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/danielng188/LisbonMeetUps">Lisbonmeetups</a> is designed by <a href="https://github.com/danielng188">Duc Nguyen</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/danielng188/LisbonMeetUps">Lisbonmeetups</a> is designed by Duc Nguyen and James Page.</span>
       </footer>
 
     </section>
     </div>
 
   <script type="text/javascript">
+  $(function() {
+ 
+  
+  var lengthText = 10;
+  var text = $('#test').text();
+  var shortText = $.trim(text).substring(0, lengthText).split(" ").slice(0, -1).join(" ") + "...";
+  
+  $('#test').prop("title", text);
+  $('#test').text(shortText);
+  
+   $('[data-toggle="tooltip"]').tooltip();
+})
 
     var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1NptDuEELr9ZBcfXyd7B4CGFZ2oXjf8JFYpLCQXcc3aQ/edit#gid=0';
     
@@ -191,7 +231,7 @@
     var currentYear = d.getFullYear();
     
     var monthEventsTemplate = Handlebars.compile($('#monthEvents-template').html());
-    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + currentMonth + " and T = " + currentYear + "  and I >= V order by I ASC";  
+    var monthEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X where U = " + currentMonth + " and V = " + currentYear + "  and I >= X order by I ASC";  
 
     // Selects event in current month
     $('#monthEvents-table').sheetrock({
@@ -206,24 +246,24 @@
     
     // Selects event in next month
     var nextEventsTemplate = Handlebars.compile($('#nextEvents-template').html());
-    var nextEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + (currentMonth+1) + " and T = " + currentYear + "  and I >= V order by I ASC";   
+    var nextEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X where U = " + (currentMonth+1) + " and V = " + currentYear + "  and I >= X order by I ASC";   
     
     $('#nextEvents-table').sheetrock({
       url: mySpreadsheet,
       query: nextEventsQuery,
       rowTemplate: nextEventsTemplate,
     });
-    /*
+    
     // Selects event in next next month
     var nnextEventsTemplate = Handlebars.compile($('#nnextEvents-template').html());
-    var nnextEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,R,S,T,U,V where S = " + (currentMonth+2) + " and T = " + currentYear + "  and I >= V order by I ASC";   
+    var nnextEventsQuery = "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X where U = " + (currentMonth+2) + " and V = " + currentYear + "  and I >= X order by I ASC";   
     
     $('#nnextEvents-table').sheetrock({
       url: mySpreadsheet,
       query: nnextEventsQuery,
       rowTemplate: nnextEventsTemplate,
     });
-    */
+    
     /*
     var monthHeadlineTemplate = Handlebars.compile($('#monthHeadline-template').html());
     var monthHeadlineQuery = "select I";
