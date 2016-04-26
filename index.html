@@ -26,9 +26,7 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!--
-    <script src="js/bootstrap-formhelpers.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-formhelpers.min.css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/normalize.css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/github-light.css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/sheetrock.css" media="screen"> 
@@ -39,20 +37,12 @@
   <body>
     <div class="container">
       <section class="page-header">
-      <h1 class="project-name">Lisbon Meetups</h1>
-      <h2 class="project-tagline">All events in Lisbon. At one place.</h2>
-    </section>
+        <h1 class="project-name">Lisbon Meetups</h1>
+        <h2 class="project-tagline">All events in Lisbon. At one place.</h2>
+      </section>
 
     <section class="main-content">
-    <!--
-      <div id="monthHeadline">
-        <script id="monthHeadline-template" type="text/x-handlebars-template">
-          <h2>{{cells.Month}} EVENTS</h2>
-        </script>
-      </div>
-    -->
-
-      <h2>APRIL</h2>
+      <h2 id="month-0">APRIL</h2>
         <div class="table-responsive">
           <table id="0Events-table" class="table table-condensed table-striped table-hover">
             <script id="0Events-template" type="text/x-handlebars-template"> 
@@ -60,23 +50,18 @@
                 <td class="language">
                   {{#compare cells.Language "en"}}
                     <i class="flag-icon flag-icon-gb"></i>
-                    {{/compare}}
+                  {{/compare}}
                   {{#compare cells.Language "pt"}}
                     <i class="flag-icon flag-icon-pt"></i>
-                    {{/compare}}
+                  {{/compare}}
                   {{#compare cells.Language "polygot"}}
-                    <!--<i class="flag-icon flag-icon-world"></i>-->
                     <i class="fa fa-globe" style="font-size:24px"></i>
-                    {{/compare}}
-                  <!--{{cells.Language}}-->
+                  {{/compare}}
                 </td>
                 <td class="weekday"><b>{{cells.Weekday}}</b></td>
                 <td class="time">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
                 <td class="price">
                   {{#compare cells.Free "no"}}
-                    <!--
-                    <i class="fa fa-euro" style="font-size:24px"></i><i class="fa fa-euro" style="font-size:24px"></i>
-                    -->
                   {{else}}
                     <strong class="btn btn-primary btn-xs">FREE</strong>
                   {{/compare}}
@@ -102,7 +87,7 @@
           </table>
         </div>
 
-        <h2>MAY</h2>
+      <h2>MAY</h2>
         <div class="table-responsive">
           <table id="1Events-table" class="table table-condensed table-striped table-hover">
             <script id="1Events-template" type="text/x-handlebars-template"> 
@@ -110,23 +95,18 @@
                 <td class="language">
                   {{#compare cells.Language "en"}}
                     <i class="flag-icon flag-icon-gb"></i>
-                    {{/compare}}
+                  {{/compare}}
                   {{#compare cells.Language "pt"}}
                     <i class="flag-icon flag-icon-pt"></i>
-                    {{/compare}}
+                  {{/compare}}
                   {{#compare cells.Language "polygot"}}
-                    <!--<i class="flag-icon flag-icon-world"></i>-->
                     <i class="fa fa-globe" style="font-size:24px"></i>
-                    {{/compare}}
-                  <!--{{cells.Language}}-->
+                  {{/compare}}
                 </td>
                 <td class="weekday"><b>{{cells.Weekday}}</b></td>
                 <td class="time">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
                 <td class="price">
                   {{#compare cells.Free "no"}}
-                    <!--
-                    <i class="fa fa-euro" style="font-size:24px"></i><i class="fa fa-euro" style="font-size:24px"></i>
-                    -->
                   {{else}}
                     <strong class="btn btn-primary btn-xs">FREE</strong>
                   {{/compare}}
