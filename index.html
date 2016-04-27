@@ -42,6 +42,7 @@
       </section>
 
     <section class="main-content">
+
       <div class="table-responsive">
         <h2>January</h2>
           <table id="January" class="table table-condensed table-striped table-hover">
@@ -79,8 +80,6 @@
         <h2>December</h2>
           <table id="December" class="table table-condensed table-striped table-hover">
           </table>
-    </script>
-      </div>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/danielng188/LisbonMeetUps">Lisbonmeetups</a> is designed by Duc Nguyen and James Page.</span>
@@ -106,8 +105,9 @@
       <td class="time">{{cells.TimeStart}}-{{cells.TimeEnd}}</td>
       <td class="price">
         {{#compare cells.Free "no"}}
+          <strong class="btn btn-danger btn-xs">€€€</strong>
         {{else}}
-          <strong class="btn btn-primary btn-xs">FREE</strong>
+          <strong class="btn btn-info btn-xs">Free</strong>
         {{/compare}}
       </td>
       <td class="image"><img src="{{cells.FeaturedImageUrl}}" class="img-responsive"></td>
@@ -135,24 +135,24 @@
     
     var d = new Date;
     //var currentDate = d.getDate();
-    var currentMonth = d.getMonth() + 1;//4
-    var currentYear = d.getFullYear();//2016
+    var currentMonth = d.getMonth() + 1;
+    var currentYear = d.getFullYear();
     var months = ["#January" , "#February" , "#March" , "#April", "#May","#June", "#July", "#August", "#September", "#October","#November", "#December"];
 
     for (currentMonth; currentMonth < currentMonth + 6; currentMonth++) {
       
-      var template = Handlebars.compile($("#row-template").html());
+      var rowTemplate = Handlebars.compile($("#row-template").html());
       var query = getQuery(currentMonth, currentYear); 
 
       $(months[currentMonth-1]).sheetrock({
         url: mySpreadsheet,
         query: query,
-        rowTemplate: template,
+        rowTemplate: rowTemplate,
       });
     }
 
     function getQuery(month, year){
-    return "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X where U = " + month + " and V = " + year + "  and I >= X order by I ASC";
+    return "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y where U = " + month + " and V = " + year + "  and I >= X order by I ASC";
 }  
   </script>
 
