@@ -6,9 +6,11 @@
   text-align: center;
 }
 
-thead tr.header-row {
+
+thead tr {
 	display: none;
 }
+
 .language, .weekday, .time, .price, .map, .source {
   white-space: nowrap;
 }
@@ -47,7 +49,6 @@ thead tr.header-row {
 }
 
 .fa-globe {
-  color: #337ab7;
   content: url(../img/world-20px.png);
 }
 
