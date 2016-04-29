@@ -128,31 +128,43 @@
     var d = new Date;
     //var currentDate = d.getDate();
     var currentMonth = d.getMonth() + 1;
+    //var currentMonth = 11;
     var currentYear = d.getFullYear();
     var months = ["#January", "#February", "#March", "#April", "#May","#June", "#July", "#August", "#September", "#October", "#November", "#December"];
 
     for ( var i = currentMonth; i < currentMonth+6; i++) {
-      //Prepend Month Heading
-      $(months[i-1]).before("<h2>"+months[i-1]+"/"+currentYear+"</h2>");
-
+      
       var rowTemplate = Handlebars.compile($("#row-template").html());
-      //when month > 12 get query of next year
-      if (i > 12)
-        var query = getQuery(i-12, currentYear+1); 
-      else
-        var query = getQuery(i, currentYear); 
 
-      //assign data to #month-id
-      $(months[i-1]).sheetrock({
-        url: mySpreadsheet,
-        query: query,
-        rowTemplate: rowTemplate,
-      });
+      if (i <= 12){
+        //Prepend Month Heading
+        $(months[i-1]).before("<h2>"+months[i-1]+"/"+currentYear+"</h2>");
+        var query = getQuery(i, currentYear); 
+        //assign data to #month-id
+        $(months[i-1]).sheetrock({
+          url: mySpreadsheet,
+          query: query,
+          rowTemplate: rowTemplate,
+        });
+      }
+      //when month > 12 get query of next year
+      else {
+        var j = i - 12;
+        $(months[j-1]).before("<h2>"+months[j-1]+"/"+(currentYear+1)+"</h2>");
+        var query = getQuery(j, currentYear+1);
+        //assign data to #month-id
+        $(months[j-1]).sheetrock({
+          url: mySpreadsheet,
+          query: query,
+          rowTemplate: rowTemplate,
+        });
+      }
+  
     }
 
     function getQuery(month, year){
     return "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y where U = " + month + " and V = " + year + "  and I >= X order by I ASC";
-}  
+    }  
   </script>
 
 
