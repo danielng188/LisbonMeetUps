@@ -43,7 +43,7 @@
 
     <section class="main-content">
 
-      <div class="table-responsive">
+      <div class="table-responsive" id="events">
         <h2>January</h2>
           <table id="January" class="table table-condensed table-striped table-hover">
           </table>
@@ -53,7 +53,7 @@
         <h2>March</h2>
           <table id="March" class="table table-condensed table-striped table-hover">
           </table>
-        <h2>April</h2>
+        <h2>April</h2> 
           <table id="April" class="table table-condensed table-striped table-hover">
           </table>
         <h2>May</h2>
@@ -80,6 +80,33 @@
         <h2>December</h2>
           <table id="December" class="table table-condensed table-striped table-hover">
           </table>
+        <!--
+          <table id="January" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="February" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="March" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="April" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="May" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="June" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="July" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="August" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="September" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="October" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="November" class="table table-condensed table-striped table-hover">
+          </table>
+          <table id="December" class="table table-condensed table-striped table-hover">
+          </table>
+        -->
+      </div>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/danielng188/LisbonMeetUps">Lisbonmeetups</a> is designed by Duc Nguyen and James Page.</span>
@@ -88,6 +115,7 @@
     </section>
     </div>
 
+  <!--row template-->
   <script id="row-template" type="text/x-handlebars-template"> 
     <tr class="header-row">
       <td class="language">
@@ -140,7 +168,9 @@
     var months = ["#January", "#February", "#March", "#April", "#May","#June", "#July", "#August", "#September", "#October", "#November", "#December"];
 
     for ( var i = currentMonth; i < currentMonth+6; i++) {
-      
+      //Prepend Month Heading
+      //$(months[i-1]).prepend("<h2>"+months[i-1]+"/"+currentYear+"</h2>");
+
       var rowTemplate = Handlebars.compile($("#row-template").html());
       //when month > 12 get query of next year
       if (i > 12)
@@ -148,6 +178,7 @@
       else
         var query = getQuery(i, currentYear); 
 
+      //assign data to #month-id
       $(months[i-1]).sheetrock({
         url: mySpreadsheet,
         query: query,
