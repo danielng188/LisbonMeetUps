@@ -137,14 +137,18 @@
     //var currentDate = d.getDate();
     var currentMonth = d.getMonth() + 1;
     var currentYear = d.getFullYear();
-    var months = ["#January" , "#February" , "#March" , "#April", "#May","#June", "#July", "#August", "#September", "#October","#November", "#December"];
+    var months = ["#January", "#February", "#March", "#April", "#May","#June", "#July", "#August", "#September", "#October", "#November", "#December"];
 
-    for (currentMonth; currentMonth < currentMonth + 6; currentMonth++) {
+    for ( var i = currentMonth; i < currentMonth+6; i++) {
       
       var rowTemplate = Handlebars.compile($("#row-template").html());
-      var query = getQuery(currentMonth, currentYear); 
+      //when month > 12 get query of next year
+      if (i > 12)
+        var query = getQuery(i-12, currentYear+1); 
+      else
+        var query = getQuery(i, currentYear); 
 
-      $(months[currentMonth-1]).sheetrock({
+      $(months[i-1]).sheetrock({
         url: mySpreadsheet,
         query: query,
         rowTemplate: rowTemplate,
