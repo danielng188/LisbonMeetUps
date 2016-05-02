@@ -45,30 +45,18 @@
 
       <div class="table-responsive" id="events">
 
-          <table id="January" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="February" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="March" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="April" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="May" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="June" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="July" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="August" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="September" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="October" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="November" class="table table-condensed table-striped table-hover">
-          </table>
-          <table id="December" class="table table-condensed table-striped table-hover">
-          </table>
+          <table id="January" class="table table-condensed table-striped table-hover"></table>
+          <table id="February" class="table table-condensed table-striped table-hover"></table>
+          <table id="March" class="table table-condensed table-striped table-hover"></table>
+          <table id="April" class="table table-condensed table-striped table-hover"></table>
+          <table id="May" class="table table-condensed table-striped table-hover"></table>
+          <table id="June" class="table table-condensed table-striped table-hover"></table>
+          <table id="July" class="table table-condensed table-striped table-hover"></table>
+          <table id="August" class="table table-condensed table-striped table-hover"></table>
+          <table id="September" class="table table-condensed table-striped table-hover"></table>
+          <table id="October" class="table table-condensed table-striped table-hover"></table>
+          <table id="November" class="table table-condensed table-striped table-hover"></table>
+          <table id="December" class="table table-condensed table-striped table-hover"></table>
         
       </div>
 
@@ -78,6 +66,11 @@
 
     </section>
     </div>
+
+  <!--table template-->
+  <script id="table-template" type="text/x-handlebars-template">
+    <table id="{{cells.Month2}}" class="table table-condensed table-striped table-hover"></table>
+  </script>
 
   <!--row template-->
   <script id="row-template" type="text/x-handlebars-template"> 
@@ -127,32 +120,54 @@
     
     var d = new Date;
     //var currentDate = d.getDate();
-    var currentMonth = d.getMonth() + 1;
+    //var currentMonth = d.getMonth() + 1;
+    var currentMonth = 10;
     var currentYear = d.getFullYear();
-    var months = ["#January", "#February", "#March", "#April", "#May","#June", "#July", "#August", "#September", "#October", "#November", "#December"];
+    var months = ["January", "February", "March", "April", "May","June", "July", "August", "September", "October", "November", "December"];
+
+    //var tableTemplate = Handlebars.compile($("#table-template").html());
+
+    var rowTemplate = Handlebars.compile($("#row-template").html());
 
     for ( var i = currentMonth; i < currentMonth+6; i++) {
-      //Prepend Month Heading
-      $(months[i-1]).before("<h2>"+months[i-1]+"/"+currentYear+"</h2>");
 
-      var rowTemplate = Handlebars.compile($("#row-template").html());
-      //when month > 12 get query of next year
-      if (i > 12)
-        var query = getQuery(i-12, currentYear+1); 
-      else
-        var query = getQuery(i, currentYear); 
+      /*
+      var templateMonth =   (i % 12) + i;
+      //get data and assign to table-id
+        getData(templateMonth, currentYear);
+      */
 
-      //assign data to #month-id
-      $(months[i-1]).sheetrock({
-        url: mySpreadsheet,
-        query: query,
-        rowTemplate: rowTemplate,
-      });
+      console.log("i");
+      //get data and assign to table-id
+      if (i <= 12){
+        getTable(i, currentYear);
+      }
+      //when month > 12 get next year
+      else {
+        var j = i % 12;
+        getTable(j, currentYear+1);
+      }
+      
     }
 
     function getQuery(month, year){
-    return "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y where U = " + month + " and V = " + year + "  and I >= X order by I ASC";
-}  
+      return "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y where U = " + month + " and V = " + year + "  and I >= X order by I ASC";
+    } 
+
+    
+    function getTable(month, year){
+      var monthID = "#".concat(months[month]);
+        $(monthID).before("<h2>"+months[month-1]+"/"+year+"</h2>");//Prepend Month Heading
+        var query = getQuery(month, year);
+        //assign data to #month-id
+        $(monthID).sheetrock({
+          url: mySpreadsheet,
+          query: query,
+          rowTemplate: rowTemplate,
+        });
+    }
+    
+
   </script>
 
 
