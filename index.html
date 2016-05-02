@@ -44,20 +44,6 @@
     <section class="main-content">
 
       <div class="table-responsive" id="events">
-
-          <table id="January" class="table table-condensed table-striped table-hover"></table>
-          <table id="February" class="table table-condensed table-striped table-hover"></table>
-          <table id="March" class="table table-condensed table-striped table-hover"></table>
-          <table id="April" class="table table-condensed table-striped table-hover"></table>
-          <table id="May" class="table table-condensed table-striped table-hover"></table>
-          <table id="June" class="table table-condensed table-striped table-hover"></table>
-          <table id="July" class="table table-condensed table-striped table-hover"></table>
-          <table id="August" class="table table-condensed table-striped table-hover"></table>
-          <table id="September" class="table table-condensed table-striped table-hover"></table>
-          <table id="October" class="table table-condensed table-striped table-hover"></table>
-          <table id="November" class="table table-condensed table-striped table-hover"></table>
-          <table id="December" class="table table-condensed table-striped table-hover"></table>
-        
       </div>
 
       <footer class="site-footer">
@@ -69,7 +55,11 @@
 
   <!--table template-->
   <script id="table-template" type="text/x-handlebars-template">
-    <table id="{{cells.Month2}}" class="table table-condensed table-striped table-hover"></table>
+    {{#each this}}
+      <h2>{{name}}/{{year}}</h2>
+      <table id="{{name}}" class="table table-condensed table-striped table-hover">
+      </table>
+    {{/each}}
   </script>
 
   <!--row template-->
@@ -115,58 +105,64 @@
   </script>
 
   <script type="text/javascript">
-
     var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1NptDuEELr9ZBcfXyd7B4CGFZ2oXjf8JFYpLCQXcc3aQ/edit#gid=0';
-    
-    var d = new Date;
-    //var currentDate = d.getDate();
-    //var currentMonth = d.getMonth() + 1;
-    var currentMonth = 10;
-    var currentYear = d.getFullYear();
+    var rowTemplate = Handlebars.compile($("#row-template").html());
+    var tableTemplate = Handlebars.compile($("#table-template").html());         
     var months = ["January", "February", "March", "April", "May","June", "July", "August", "September", "October", "November", "December"];
 
-    //var tableTemplate = Handlebars.compile($("#table-template").html());
+    showData();
 
-    var rowTemplate = Handlebars.compile($("#row-template").html());
-
-    for ( var i = currentMonth; i < currentMonth+6; i++) {
-
-      /*
-      var templateMonth =   (i % 12) + i;
-      //get data and assign to table-id
-        getData(templateMonth, currentYear);
-      */
-
-      console.log("i");
-      //get data and assign to table-id
-      if (i <= 12){
-        getTable(i, currentYear);
-      }
-      //when month > 12 get next year
-      else {
-        var j = i % 12;
-        getTable(j, currentYear+1);
-      }
-      
-    }
-
+    //Query to get data
     function getQuery(month, year){
       return "select A,B,C,D,E,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y where U = " + month + " and V = " + year + "  and I >= X order by I ASC";
     } 
 
-    
+    //Bind rowtemplate to table
     function getTable(month, year){
       var monthID = "#".concat(months[month]);
-        $(monthID).before("<h2>"+months[month-1]+"/"+year+"</h2>");//Prepend Month Heading
-        var query = getQuery(month, year);
-        //assign data to #month-id
-        $(monthID).sheetrock({
-          url: mySpreadsheet,
-          query: query,
-          rowTemplate: rowTemplate,
-        });
+      var query = getQuery(month+1, year);//month array starts from 0
+      //Bind to #month-id
+      $(monthID).sheetrock({
+        url: mySpreadsheet,
+        query: query,
+        rowTemplate: rowTemplate,
+      });
     }
-    
+
+    function showData(){
+      var d = new Date;
+      //var currentDate = d.getDate();
+      var currentMonth = d.getMonth();
+      //var currentMonth = 10;
+      var currentYear = d.getFullYear();
+      var monthHeading = new Array();//contain Month & Year Heading
+
+      //Create Heading & Table
+      for ( var i = currentMonth; i < currentMonth+6; i++) {
+        //when month < 12 get this year
+        if (i < 12){
+          monthHeading.push({name: months[i], year: currentYear});//Add to array of Month & Year Heading
+        }
+        //when month >= 12 get next year
+        else {
+          monthHeading.push({name: months[i-12], year: currentYear+1});
+        } 
+      }
+      //Create Heading & Table
+      $('#events').append(tableTemplate(monthHeading));
+
+      //Bind Row to Table
+      for ( var i = currentMonth; i < currentMonth+6; i++) {
+        //when month < 12 get this year
+        if (i < 12){
+          getTable(i, currentYear);
+        }
+        //when month >= 12 get next year
+        else {
+          getTable(i-12, currentYear+1);
+        }
+      }
+    }
 
   </script>
 
